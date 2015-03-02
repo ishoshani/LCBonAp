@@ -3,4 +3,12 @@
 	<li>figure out how to CSS</li>
 	<li>figure out how to scrape Bon Menu</li>
 	<li>Eat all 5 kinds of lays specially flavored potato chips</li>
-<u1>
+</u1>
+	<p>
+		A sample from the menu
+		<u1>
+		<li>
+		<%= @meals.css(".station-title").text %>
+		<%= @meals.css(".station-item").text %>
+		</li>
+	</p>
