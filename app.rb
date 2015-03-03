@@ -3,13 +3,15 @@ require 'rubygems'
 require 'bundler/setup'
 require 'open-uri'
 require 'nokogiri'
+require 'date'
 Bundler.require
 
-MENU_URL = "http://legacy.cafebonappetit.com/print-menu/cafe/150/menu/74066/days/today/"
+MENU_URL = "http://legacy.cafebonappetit.com/print-menu/cafe/150/menu/"
 
 def scrape_bon
   html = Nokogiri::HTML(open(MENU_URL))
-  @items = html.css(".station strong").zip(html.css(".description strong"))
+  today = html.css("#menu-items .eni-menu-day-#{Date.today.cwday}")
+  @items = today.css('.station strong').zip(today.css(".description strong"))
 end
 
 get '/' do
