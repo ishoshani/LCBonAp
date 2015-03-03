@@ -1,6 +1,9 @@
-<h1>ToDo</h1>
-<u1>
-	<li>figure out how to CSS</li>
-	<li>figure out how to scrape Bon Menu</li>
-	<li>Eat all 5 kinds of lays specially flavored potato chips</li>
-<u1>
+<h1>Today's Menu</h1>
+<table>
+  <% @items.each do |station, description| %>
+    <tr>
+      <td><%= "#{station.text}"%></td>
+      <td><%= "#{description.text}"%></td>
+    </tr>
+  <% end %>
+</table>
