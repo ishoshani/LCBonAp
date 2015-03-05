@@ -1,17 +1,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Today's Menu</h1>
+      <h1>Today's Menu <small><%= Date.today%></small></h1>
+      <% @meals.each do |key, array| %>
+        <div class="row">
+          <div class="col-md-12">
+            <h4><%= "#{key}" %></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <% array.each do |station, description| %>
+              <dl class='dl-horizontal'>
+                <dt><%= "#{station}" %></dt>
+                <dd><%= "#{description}" %></dt>
+              </dl>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-  <% @items.each do |station, description| %>
-    <div class="row">
-      <div class="col-md-2 station">
-        <b><%= "#{station.text.capitalize}" %></b>
-      </div>
-      <div class="col-md-10 description">
-        <%= "#{description.text.capitalize}." %>
-      </div>
-    </div>
-  <% end %>
 </div>
