@@ -6,7 +6,8 @@ require 'nokogiri'
 require 'date'
 require 'json'
 Bundler.require
-require './models/MenuItem'
+require './models/Item'
+require './models/Meal'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -39,24 +40,33 @@ def scrape_menu
   end
 end
 
+def fill_database
+  scrape_menu
+  @meals.each do |key, array|
+    meal = Meal.create(name: key)
+    array.each do |station, description|
+      meal.items.create(station: station, description: description, votes: 0)
+    end
+  end
+end
+
 get '/' do
   scrape_menu
 	erb :index
 end
 
-get '/:item' do
-  @item = MenuItem.find_by(id: params[:item])
-  erb :item_show
+get '/menu' do
+  @meals = Meal.all
+  erb :menu
 end
 
 post '/' do
-  @item = MenuItem.find_by(id: params[:id])
-  puts JSON.pretty_generate params
+  @item = Item.find_by(id: params[:id])
   if params[:vote] == '+1'
     @item.increment!(:votes)
   elsif params[:vote] == '-1'
     @item.decrement!(:votes)
   end
-  redirect "/#{params[:id]}"
+  redirect "/menu"
 end
 

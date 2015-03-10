@@ -1,0 +1,27 @@
+<div class="container">
+  <% @meals.each do |meal| %>
+    <div class="row">
+      <div class="col-md-12">
+        <h3><%= meal.name %></h3>
+      </div>
+    </div>
+    <% meal.items.each do |item| %>
+      <div class="row">
+        <div class="col-md-3">
+          <%= item.station %>
+        </div>
+        <div class="col-md-7">
+          <%= item.description %>
+        </div>
+        <div class="col-md-2">
+          <form action='/' method='post'>
+            <input type="hidden" name="id" value='<%= "#{item.id}" %>'/>
+            <input type="submit" name="vote" value="-1" />
+            <%= item.votes %>
+            <input type="submit" name="vote" value="+1" />
+          </form>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
