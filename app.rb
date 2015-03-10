@@ -45,17 +45,12 @@ def fill_database
   @meals.each do |key, array|
     meal = Meal.create(name: key)
     array.each do |station, description|
-      meal.items.create(station: station, description: description, votes: 0)
+      meal.items.create(station: station.capitalize, description: "#{description.capitalize}.", votes: 0)
     end
   end
 end
 
 get '/' do
-  scrape_menu
-	erb :index
-end
-
-get '/menu' do
   @meals = Meal.all
   erb :menu
 end
@@ -67,6 +62,6 @@ post '/' do
   elsif params[:vote] == '-1'
     @item.decrement!(:votes)
   end
-  redirect "/menu"
+  redirect "/"
 end
 

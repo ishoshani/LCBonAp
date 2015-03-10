@@ -1,4 +1,9 @@
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Today's Menu <small><%= Date.today %></small></h1>
+    </div>
+  </div>
   <% @meals.each do |meal| %>
     <div class="row">
       <div class="col-md-12">
@@ -6,14 +11,14 @@
       </div>
     </div>
     <% meal.items.each do |item| %>
-      <div class="row">
-        <div class="col-md-3">
+      <div class="row items">
+        <div class="col-md-3 col-xs-2">
           <%= item.station %>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-7 col-xs-6">
           <%= item.description %>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-xs-4">
           <form action='/' method='post'>
             <input type="hidden" name="id" value='<%= "#{item.id}" %>'/>
             <input type="submit" name="vote" value="-1" />
