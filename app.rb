@@ -50,6 +50,12 @@ def fill_database
   end
 end
 
+def empty_database
+  Meal.all.each do |meal|
+    meal.destroy
+  end
+end
+
 get '/' do
   @meals = Meal.all
   erb :menu
