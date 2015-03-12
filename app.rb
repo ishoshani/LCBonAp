@@ -62,7 +62,6 @@ get '/' do
 end
 
 post '/' do
-  puts "Params: #{params}"
   @item = Item.find_by(id: params[:id])
   if params[:vote] == "1"
     @item.increment!(:votes)

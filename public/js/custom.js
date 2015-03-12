@@ -1,10 +1,6 @@
 $(".vote").click(function(){
   id = $(this).attr("id");
   value = $(this).attr("value");
-  vote(id, value);
-});
-
-function vote(id, value) {
   $.ajax({
     url: "/",
     type: "POST",
@@ -13,4 +9,4 @@ function vote(id, value) {
       $("#" + id + ".score").html(data);
     }
   });
-}
+});
