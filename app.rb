@@ -8,6 +8,7 @@ require 'json'
 Bundler.require
 require './models/Item'
 require './models/Meal'
+require './models/Address'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -63,10 +64,14 @@ end
 
 post '/' do
   @item = Item.find_by(id: params[:id])
-  if params[:vote] == "1"
-    @item.increment!(:votes)
-  elsif params[:vote] == "-1"
-    @item.decrement!(:votes)
+  address = request.ip
+  if @item.addresses.find_by(address: address).nil?
+    if params[:vote] == "1"
+      @item.increment!(:votes)
+    elsif params[:vote] == "-1"
+      @item.decrement!(:votes)
+    end
+    @item.addresses.create(address: address)
   end
   content_type :json
   @item.votes.to_json
