@@ -62,12 +62,14 @@ get '/' do
 end
 
 post '/' do
+  puts "Params: #{params}"
   @item = Item.find_by(id: params[:id])
-  if params[:vote] == '+1'
+  if params[:vote] == "1"
     @item.increment!(:votes)
-  elsif params[:vote] == '-1'
+  elsif params[:vote] == "-1"
     @item.decrement!(:votes)
   end
-  redirect "/"
+  content_type :json
+  @item.votes.to_json
 end
 
