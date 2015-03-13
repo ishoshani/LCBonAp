@@ -5,34 +5,35 @@
     </div>
   </div>
   <% @meals.each do |meal| %>
-    <div class="row">
-      <div class="col-md-12">
+    <div class='panel panel-default'>
+      <div class="panel-heading">
         <h3><%= meal.name %></h3>
       </div>
-    </div>
-    <% meal.items.each do |item| %>
-      <div class="row items">
-        <div class="col-md-3 col-xs-2">
-          <%= item.station %>
-        </div>
-        <div class="col-md-7 col-xs-6">
-          <%= item.description %>
-        </div>
-        <div class="col-md-2 col-xs-4">
-          <button class="vote" id='<%= "#{item.id}" %>' value="-1">-1</button>
-          <span class="score" id='<%= "#{item.id}" %>'><%= item.votes %></span>
-          <button class="vote" id='<%= "#{item.id}" %>' value="1">+1</button>
-        </div>
+      <div class="panel-body">
+        <% meal.items.each do |item| %>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3 col-xs-2">
+                <%= item.station %>
+              </div>
+              <div class="col-md-7 col-xs-5">
+                <%= item.description %>
+              </div>
+              <div class="col-md-2 col-xs-5">
+                <button type="button" class="vote" id='<%= "#{item.id}" %>' value="-1">
+                  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                </button>
+                <span class="score" id='<%= "#{item.id}" %>'>
+                  <%= item.votes %>
+                </span>
+                <button type="button" class="vote" id='<%= "#{item.id}" %>' value="1">
+                  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
-</div>
-<div class='contact'>
-  <div class='container'>
-  <p><small>Send feedback about the site with
-    <a href="mailto:lcsimplemenu@gmail.com">lcsimplemenu@gmail.com
-    </a></small>
-   </p>
-   <p><small>Check our github <a href="https://github.com/ishoshani/LCBonAp"> here</a></small> </p>
- </div>
 </div>
