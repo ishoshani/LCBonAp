@@ -64,8 +64,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord (>= 4.0.4)
   nokogiri
-  pg
-  rake
   shotgun (>= 0.9)
   sinatra (>= 1.4.5)
   sinatra-activerecord

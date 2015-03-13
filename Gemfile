@@ -1,5 +1,6 @@
 ruby "2.1.1"
 source 'https://rubygems.org'
+gem 'rack'
 gem 'sinatra', '>= 1.4.5'
 gem 'nokogiri'
 gem 'activerecord', '>= 4.0.4'
