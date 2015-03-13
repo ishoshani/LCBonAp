@@ -42,6 +42,7 @@ def scrape_menu
 end
 
 def fill_database
+  empty_database
   scrape_menu
   @meals.each do |key, array|
     meal = Meal.create(name: key)
@@ -59,7 +60,7 @@ end
 
 get '/' do
   @meals = Meal.all
-  erb :menu
+  erb :index
 end
 
 post '/' do

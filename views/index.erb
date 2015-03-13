@@ -1,24 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Today's Menu <small><%= Date.today%></small></h1>
-      <% @meals.each do |key, array| %>
-        <div class="row">
-          <div class="col-md-12">
-            <h4><%= "#{key}" %></h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <% array.each do |station, description| %>
-              <dl class='dl-horizontal'>
-                <dt><%= "#{station}" %></dt>
-                <dd><%= "#{description}" %></dt>
-              </dl>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
+      <h1>Today's Menu <small><%= Date.today %></small></h1>
     </div>
   </div>
+  <% @meals.each do |meal| %>
+    <div class="row">
+      <div class="col-md-12">
+        <h3><%= meal.name %></h3>
+      </div>
+    </div>
+    <% meal.items.each do |item| %>
+      <div class="row items">
+        <div class="col-md-3 col-xs-2">
+          <%= item.station %>
+        </div>
+        <div class="col-md-7 col-xs-6">
+          <%= item.description %>
+        </div>
+        <div class="col-md-2 col-xs-4">
+          <button class="vote" id='<%= "#{item.id}" %>' value="-1">-1</button>
+          <span class="score" id='<%= "#{item.id}" %>'><%= item.votes %></span>
+          <button class="vote" id='<%= "#{item.id}" %>' value="1">+1</button>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>
