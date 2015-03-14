@@ -1,3 +1,7 @@
-.contact{
-	font-size: 10;
+.item {
+  padding: 5px;
+}
+
+.score-display {
+  text-align: center;
 }
