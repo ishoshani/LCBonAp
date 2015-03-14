@@ -12,11 +12,18 @@
       <div class="panel-body">
         <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
           <div class="row item">
-            <div class="col-md-3 col-xs-3">
-              <%= item.station %>
+            <div class="col-md-2 col-xs-4">
+              <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn btn-default vote" id='<%= "#{item.id}" %>' value="1">
+                  <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-default vote" id='<%= "#{item.id}" %>' value="-1">
+                  <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                </button>
+              </div>
             </div>
-            <div class="col-md-7 col-xs-5">
-              <%= item.description %>
+            <div class="col-md-3 col-xs-3">
+              <h5><%= item.station %></h5>
               <span class="label label-primary">
                 score: 
                 <span class="score" id='<%= "#{item.id}" %>'>
@@ -24,19 +31,8 @@
                 </span>
               </span>
             </div>
-            <div class="col-md-2 col-xs-4">
-              <div class="row">
-                <div class="col-sm-6 col-sm-push-6">
-                  <button type="button" class="vote" id='<%= "#{item.id}" %>' value="1">
-                    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                  </button>
-                </div>
-                <div class="col-sm-6 col-sm-pull-6">
-                  <button type="button" class="vote" id='<%= "#{item.id}" %>' value="-1">
-                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-                  </button>
-                </div>
-              </div>
+            <div class="col-md-7 col-xs-5">
+              <%= item.description %>
             </div>
           </div>
         <% end %>
