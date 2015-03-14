@@ -13,11 +13,20 @@
         <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
           <div class="row item">
             <div class="col-md-2 col-xs-4">
+              <% vote_state = @cookie[item.id] %>
               <div class="btn-group-vertical" role="group" aria-label="...">
-                <button type="button" class="btn btn-default vote" id='<%= "#{item.id}" %>' value="1">
+                <% if vote_state == "1" %>
+                  <button type="button" class="btn btn-primary vote vote-upvote" id='<%= "#{item.id}" %>' value="1" disabled="disabled">
+                <% else %>
+                  <button type="button" class="btn btn-default vote vote-upvote" id='<%= "#{item.id}" %>' value="1">
+                <% end %>
                   <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default vote" id='<%= "#{item.id}" %>' value="-1">
+                <% if vote_state == "-1" %>
+                  <button type="button" class="btn btn-primary vote vote-downvote" id='<%= "#{item.id}" %>' value="-1" disabled="disabled">
+                <% else %>
+                  <button type="button" class="btn btn-default vote vote-downvote" id='<%= "#{item.id}" %>' value="-1">
+                <% end %>
                   <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                 </button>
               </div>

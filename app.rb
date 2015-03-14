@@ -1,4 +1,5 @@
-# Logic for BonApp
+require "sinatra"
+require "sinatra/cookies"
 require 'rubygems'
 require 'bundler/setup'
 require 'open-uri'
@@ -8,7 +9,6 @@ require 'json'
 Bundler.require
 require './models/Item'
 require './models/Meal'
-require './models/Address'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -52,27 +52,32 @@ def fill_database
   end
 end
 
+
 def empty_database
   Meal.all.each do |meal|
     meal.destroy
   end
 end
 
+
 get '/' do
   @meals = Meal.all
+  @cookie = cookies
+  puts DateTime.tomorrow.midnight
   erb :index
 end
 
 post '/' do
   @item = Item.find_by(id: params[:id])
-  address = request.ip
-  if @item.addresses.find_by(address: address).nil?
+  if cookies[params[:id]].nil?
     if params[:vote] == "1"
       @item.increment!(:votes)
     elsif params[:vote] == "-1"
       @item.decrement!(:votes)
     end
-    @item.addresses.create(address: address)
+    response.set_cookie(params[:id],
+                        :value => params[:vote],
+                        :expires => DateTime.tomorrow.midnight)
   end
   content_type :json
   @item.votes.to_json
