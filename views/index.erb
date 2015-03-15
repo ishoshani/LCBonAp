@@ -16,19 +16,27 @@
               <% vote_state = @cookie[item.id] %>
               <div class="btn-group-vertical" role="group" aria-label="...">
                 <% if vote_state == "upvote" %>
-                  <button type="button" class="btn btn-primary vote vote-upvote" id='<%= "#{item.id}" %>' value="upvote" disabled="disabled">
+                  <button type="button" class="btn btn-primary" disabled="disabled">
+                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" class="btn btn-default" disabled="disabled">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                  </button>
+                <% elsif vote_state == "downvote" %>
+                  <button type="button" class="btn btn-default" disabled="disabled">
+                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" class="btn btn-primary" disabled="disabled">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                  </button>
                 <% else %>
                   <button type="button" class="btn btn-default vote vote-upvote" id='<%= "#{item.id}" %>' value="upvote">
-                <% end %>
-                  <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                </button>
-                <% if vote_state == "downvote" %>
-                  <button type="button" class="btn btn-primary vote vote-downvote" id='<%= "#{item.id}" %>' value="downvote" disabled="disabled">
-                <% else %>
+                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                  </button>
                   <button type="button" class="btn btn-default vote vote-downvote" id='<%= "#{item.id}" %>' value="downvote">
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                  </button>
                 <% end %>
-                  <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                </button>
               </div>
             </div>
             <div class="col-md-3 col-xs-3">

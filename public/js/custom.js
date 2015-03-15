@@ -10,7 +10,7 @@ $(".vote").click(function(){
       button =  $("#" + id + ".vote-" + vote);
       button.toggleClass("btn-default");
       button.toggleClass("btn-primary");
-      button.attr("disabled", "disabled");
+      $("#" + id + ".vote").attr("disabled", "disabled");
     }
   });
 });
