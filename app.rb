@@ -70,9 +70,9 @@ end
 post '/' do
   @item = Item.find_by(id: params[:id])
   if cookies[params[:id]].nil?
-    if params[:vote] == "1"
+    if params[:vote] == "upvote"
       @item.increment!(:votes)
-    elsif params[:vote] == "-1"
+    elsif params[:vote] == "downvote"
       @item.decrement!(:votes)
     end
     response.set_cookie(params[:id],
