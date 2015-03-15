@@ -9,6 +9,7 @@ require 'json'
 Bundler.require
 require './models/Item'
 require './models/Meal'
+require './models/Day'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -24,46 +25,47 @@ MENU_URL = "http://legacy.cafebonappetit.com/print-menu/cafe/150/menu/"
 
 def scrape_menu
   html = Nokogiri::HTML(open(MENU_URL))
-  today_cwday = Date.today.cwday
-  if today_cwday == 7 # Fix for sundays.
-    today_cwday = 0   
-  end
-  today = html.css("#menu-items .eni-menu-day-#{today_cwday}")
-  @meals = Hash.new
-
-  today.css("table tr").each do |element|
-    if (element["class"] == "always-show-me")
-      @meal = element.css("td strong").text
-      @meals[@meal] = Array.new
-    else
-      @meals[@meal].push([element.css(".station strong").text, element.css(".description strong").text])
+  @days = Array.new
+  (0..6).each do |day|
+    current_day = html.css("#menu-items .eni-menu-day-#{day}")
+    @meals = Hash.new
+    current_day.css("table tr").each do |element|
+      if (element["class"] == "always-show-me")
+        @meal = element.css("td strong").text
+        @meals[@meal] = Array.new
+      else
+        @meals[@meal].push([element.css(".station strong").text, element.css(".description strong").text])
+      end
     end
+    @days.push(@meals)
   end
 end
 
 def fill_database
   empty_database
   scrape_menu
-  @meals.each do |key, array|
-    meal = Meal.create(name: key)
-    array.each do |station, description|
-      meal.items.create(station: station.capitalize, description: "#{description.capitalize}.", votes: 0)
+  @days.each_with_index do |day, index|
+    current_day = Day.create(week: DateTime.now, day: index)
+    day.each do |key, array|
+      meal = current_day.meals.create(name: key)
+      array.each do |station, description|
+        meal.items.create(station: station.capitalize, description: "#{description.capitalize}.", votes: 0)
+      end
     end
   end
 end
 
 
 def empty_database
-  Meal.all.each do |meal|
-    meal.destroy
+  Day.all.each do |day|
+    day.destroy
   end
 end
 
 
 get '/' do
-  @meals = Meal.all
+  @meals = Day.find_by(day: Date.today.cwday).meals
   @cookie = cookies
-  puts DateTime.tomorrow.midnight
   erb :index
 end
 
