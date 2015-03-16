@@ -9,6 +9,7 @@ require 'json'
 Bundler.require
 require './models/Item'
 require './models/Meal'
+use Rack::GoogleAnalytics, :tracker => 'UA-60791797-1'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])

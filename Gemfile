@@ -8,6 +8,7 @@ gem 'activerecord', '>= 4.0.4'
 gem "sinatra-activerecord", require: 'sinatra/activerecord'
 gem "rake"
 gem "tux"
+gem 'rack-google-analytics'
 
 group :development do
   gem 'sqlite3', '>= 1.3.9'
