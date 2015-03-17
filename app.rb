@@ -36,7 +36,15 @@ def scrape_menu
       @meal = element.css("td strong").text
       @meals[@meal] = Array.new
     else
-      @meals[@meal].push([element.css(".station strong").text, element.css(".description strong").text])
+      station = element.css(".station strong").text.capitalize
+      # Removes any tabs, line-breaks, and splits the title from the description
+      item_text = element.css(".description").text.gsub("\t", "").gsub("\n", "").split('  |  ')
+      title = item_text.first.capitalize
+      description = item_text.last.capitalize + "."
+      if item_text.size == 1 # If there is no description
+        description = ""
+      end
+      @meals[@meal].push([station, title, description])
     end
   end
 end
@@ -46,8 +54,8 @@ def fill_database
   scrape_menu
   @meals.each do |key, array|
     meal = Meal.create(name: key)
-    array.each do |station, description|
-      meal.items.create(station: station.capitalize, description: "#{description.capitalize}.", votes: 0)
+    array.each do |station, title, description|
+      meal.items.create(station: station, title: title, description: description, votes: 0)
     end
   end
 end

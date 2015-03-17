@@ -5,3 +5,13 @@
 .score-display {
   text-align: center;
 }
+
+.btn-group-vertical {
+  margin-top: 8px;
+}
+
+@media (max-width: 760px) {
+  .btn-group-vertical {
+    margin-top: 10px;
+  }
+}
