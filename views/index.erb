@@ -7,12 +7,12 @@
   <% @meals.each do |meal| %>
     <div class='panel panel-default'>
       <div class="panel-heading">
-        <h3><%= meal.name %></h3>
+        <h3 class="panel-title"><%= meal.name %></h3>
       </div>
       <div class="panel-body">
         <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
           <div class="row item">
-            <div class="col-md-2 col-xs-4">
+            <div class="col-md-1 col-xs-2">
               <% vote_state = @cookie[item.id] %>
               <div class="btn-group-vertical" role="group" aria-label="...">
                 <% if vote_state == "upvote" %>
@@ -39,17 +39,22 @@
                 <% end %>
               </div>
             </div>
-            <div class="col-md-3 col-xs-3">
-              <h5><%= item.station %></h5>
-              <span class="label label-primary">
-                score: 
-                <span class="score" id='<%= "#{item.id}" %>'>
-                  <%= item.votes %>
-                </span>
-              </span>
-            </div>
-            <div class="col-md-7 col-xs-5">
-              <%= item.description %>
+            <div class="col-md-11 col-xs-10">
+              <div class="row">
+                <div class="col-sm-2">
+                  <h4><%= item.station %></h4>
+                  <span class="label label-primary">
+                    score: 
+                    <span class="score" id='<%= "#{item.id}" %>'>
+                      <%= item.votes %>
+                    </span>
+                  </span>
+                </div>
+                <div class="col-sm-10">
+                  <h5><%= item.title %></h5>
+                  <small><%= item.description %></small>
+                </div>
+              </div>
             </div>
           </div>
         <% end %>
