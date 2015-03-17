@@ -36,6 +36,7 @@ def scrape_menu
       @meal = element.css("td strong").text
       @meals[@meal] = Array.new
     else
+      station = element.css(".station strong").text.capitalize
       # Removes any tabs, line-breaks, and splits the title from the description
       item_text = element.css(".description").text.gsub("\t", "").gsub("\n", "").split('  |  ')
       title = item_text.first.capitalize
@@ -43,7 +44,7 @@ def scrape_menu
       if item_text.size == 1 # If there is no description
         description = ""
       end
-      @meals[@meal].push([element.css(".station strong").text, title, description])
+      @meals[@meal].push([station, title, description])
     end
   end
 end
