@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Today's Menu <small><%= Date.today %></small></h1>
+      <h1>Today's Menu</h1>
     </div>
   </div>
   <% @meals.each do |meal| %>
     <div class='panel panel-default'>
       <div class="panel-heading">
-        <h3 class="panel-title"><%= meal.name %></h3>
+        <span class="panel-title"><%= meal.name %></span>
       </div>
       <div class="panel-body">
         <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
@@ -17,24 +17,24 @@
               <div class="btn-group-vertical" role="group" aria-label="...">
                 <% if vote_state == "upvote" %>
                   <button type="button" class="btn btn-primary" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                   </button>
                   <button type="button" class="btn btn-default" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                   </button>
                 <% elsif vote_state == "downvote" %>
                   <button type="button" class="btn btn-default" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                   </button>
                   <button type="button" class="btn btn-primary" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                   </button>
                 <% else %>
                   <button type="button" class="btn btn-default vote vote-upvote" id='<%= "#{item.id}" %>' value="upvote">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                   </button>
                   <button type="button" class="btn btn-default vote vote-downvote" id='<%= "#{item.id}" %>' value="downvote">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
                   </button>
                 <% end %>
               </div>

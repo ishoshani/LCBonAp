@@ -1,3 +1,41 @@
+body {
+  background-color: #F1D7BC;
+  background-image: url(/images/natural-paper.png);
+}
+
+h1 {
+  font-family: 'Droid Sans Mono';
+  color: black;
+}
+
+h4 {
+  font-family: 'Droid Sans Mono';
+}
+
+small {
+  color: black;
+}
+
+.panel-default > .panel-heading {
+  background-color: #B84D4D;
+  border-radius: 0px;
+}
+
+.panel-title {
+  font-family: 'Droid Sans Mono';
+  color: white;
+}
+
+.panel {
+  border-radius: 0px;
+  font-family: 'Inconsolata';
+  border-color: #942929;
+}
+
+.label-primary {
+  background-color: #B84D4D;
+}
+
 .item {
   padding: 5px;
 }
@@ -8,6 +46,11 @@
 
 .btn-group-vertical {
   margin-top: 8px;
+}
+
+.btn-primary[disabled] {
+  background-color: #B84D4D;
+  border-color: #B84D4D;
 }
 
 @media (max-width: 760px) {
