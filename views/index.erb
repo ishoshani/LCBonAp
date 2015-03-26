@@ -10,64 +10,72 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Today's Menu <small><%= Date.today %></small></h1>
+      <h1>Today's Menu</h1>
     </div>
   </div>
-  <% @meals.each do |meal| %>
-    <div class='panel panel-default'>
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= meal.name %></h3>
-      </div>
+  <% if @meals.empty? %>
+    <div class="panel panel-default">
       <div class="panel-body">
-        <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
-          <div class="row item">
-            <div class="col-md-1 col-xs-2">
-              <% vote_state = @cookie[item.id] %>
-              <div class="btn-group-vertical" role="group" aria-label="...">
-                <% if vote_state == "upvote" %>
-                  <button type="button" class="btn btn-primary" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-default" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                  </button>
-                <% elsif vote_state == "downvote" %>
-                  <button type="button" class="btn btn-default" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-primary" disabled="disabled">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                  </button>
-                <% else %>
-                  <button type="button" class="btn btn-default vote vote-upvote" id='<%= "#{item.id}" %>' value="upvote">
-                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-default vote vote-downvote" id='<%= "#{item.id}" %>' value="downvote">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                  </button>
-                <% end %>
-              </div>
-            </div>
-            <div class="col-md-11 col-xs-10">
-              <div class="row">
-                <div class="col-sm-2">
-                  <h4><%= item.station %></h4>
-                  <span class="label label-primary">
-                    score: 
-                    <span class="score" id='<%= "#{item.id}" %>'>
-                      <%= item.votes %>
-                    </span>
-                  </span>
-                </div>
-                <div class="col-sm-10">
-                  <h5><%= item.title %></h5>
-                  <small><%= item.description %></small>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        <h2 class="text-center">The Bon is closed today!</h2>
       </div>
     </div>
+  <% else %>
+    <% @meals.each do |meal| %>
+      <div class='panel panel-default'>
+        <div class="panel-heading">
+          <span class="panel-title"><%= meal.name %></span>
+        </div>
+        <div class="panel-body">
+          <% meal.items.sort { |a,b| b.votes <=> a.votes }.each do |item| %>
+            <div class="row item">
+              <div class="col-md-1 col-xs-2">
+                <% vote_state = @cookie[item.id] %>
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                  <% if vote_state == "upvote" %>
+                    <button type="button" class="btn btn-primary" disabled="disabled">
+                      <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" disabled="disabled">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </button>
+                  <% elsif vote_state == "downvote" %>
+                    <button type="button" class="btn btn-default" disabled="disabled">
+                      <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary" disabled="disabled">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </button>
+                  <% else %>
+                    <button type="button" class="btn btn-default vote vote-upvote" id='<%= "#{item.id}" %>' value="upvote">
+                      <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default vote vote-downvote" id='<%= "#{item.id}" %>' value="downvote">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </button>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-md-11 col-xs-10">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <h4><%= item.station %></h4>
+                    <span class="label label-primary">
+                      score: 
+                      <span class="score" id='<%= "#{item.id}" %>'>
+                        <%= item.votes %>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="col-sm-10">
+                    <h5><%= item.title %></h5>
+                    <small><%= item.description %></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

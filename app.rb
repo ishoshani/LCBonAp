@@ -50,7 +50,7 @@ def scrape_menu
 end
 
 def fill_database
-  empty_database
+  Meal.destroy_all
   scrape_menu
   @meals.each do |key, array|
     meal = Meal.create(name: key)
@@ -59,14 +59,6 @@ def fill_database
     end
   end
 end
-
-
-def empty_database
-  Meal.all.each do |meal|
-    meal.destroy
-  end
-end
-
 
 get '/' do
   @meals = Meal.all
