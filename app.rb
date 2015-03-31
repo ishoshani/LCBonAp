@@ -9,6 +9,7 @@ require 'json'
 Bundler.require
 require './models/Item'
 require './models/Meal'
+require './models/Comment'
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
