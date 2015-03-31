@@ -34,3 +34,12 @@ dinner.items.create( station:     "Comfort",
                     title:        "Pizza",
                     description:  "Italian sausage and fetta cheese pizza with tomato sauce and garlic bread.",
                     votes:        0 )
+
+Item.all.each do |item|
+    item.comments.create(   email: "example@lclark.edu",
+                            comment: "This was amazing!",
+                            created_at: 5.minutes.ago )
+    item.comments.create(   email: "example@lclark.edu",
+                            comment: "I hated this so much >:(",
+                            created_at: 10.minutes.ago )
+end

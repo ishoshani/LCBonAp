@@ -65,12 +65,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <%= item.votes %>
                       </span>
                     </span>
+                    <a class="comment-toggle" id='<%= "#{item.id}" %>'>
+                      <span class="label label-primary">Show comments</span>
+                    </a>
                   </div>
                   <div class="col-sm-10">
                     <h5><%= item.title %></h5>
                     <small><%= item.description %></small>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row comments" id='<%= "#{item.id}" %>'>
+              <div class="col-md-12">
+                <ul class="list-group">
+                  <% item.comments.each do |comment| %>
+                    <li class="list-group-item">
+                      <span class="text-left"><%= comment.comment %></span>
+                      <small class="text-right"><%= comment.email %> <%= comment.created_at %></small>
+                    </li>
+                  <% end %>
+                </ul>
               </div>
             </div>
           <% end %>

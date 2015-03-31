@@ -14,3 +14,14 @@ $(".vote").click(function(){
     }
   });
 });
+
+$(".comment-toggle").click(function(){
+  id = $(this).attr("id")
+  comments = $("#" + id + ".comments")
+  comments.toggle();
+  if (comments.is(":hidden")){
+    $(".label", this).html("Show comments")
+  } else {
+    $(".label", this).html("Hide comments")
+  }
+});

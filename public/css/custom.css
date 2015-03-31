@@ -36,6 +36,10 @@ small {
   padding: 5px;
 }
 
+.comments {
+  display: none;
+}
+
 .score-display {
   text-align: center;
 }
